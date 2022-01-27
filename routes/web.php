@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PostController@index');
+Route::get('/picher', 'PostController@show');
+Route::get('/information','PostController@view');
