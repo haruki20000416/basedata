@@ -8,6 +8,8 @@ class Information extends Model
 {
     protected $table = 'informations';
     
+    public $timestamps = false;
+    
     protected $fillable =
     [
         'place',

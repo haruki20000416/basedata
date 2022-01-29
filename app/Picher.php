@@ -8,6 +8,8 @@ class Picher extends Model
 {
     protected $table = 'pichers';
     
+     public $timestamps = false;
+    
     protected $fillable =
     [
         'uniname',

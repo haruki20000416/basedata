@@ -20,8 +20,55 @@ class PostController extends Controller
         return $Picher ->get();
         
     }
-    public function view(Information $info)
+    
+    
+    public function create()
     {
-        return $info ->get();
+    return view('information');
+
     }
+    
+    public function store(Request $request, Information $infomation)
+    {
+        $input = $request['information'];
+        $infomation->fill($input)->save();
+        return redirect('/informations/' . $infomation->id);
+    }
+    
+    public function view(Information $information) 
+    {
+    return view('show')->with(['information' => $information]);
+    }
+    
+    public function gamestore(Request $request, Game $game)
+    {
+        $input  = $request['game'];
+        $game->fill($input)->save();
+        return redirect('/games/'.$game->id);
+    }
+    
+    public function gameview(Game $game)
+    {
+        return view('gameview')->with(['game' => $game]);
+    }
+    public function gamecreat()
+    {
+        return view('game');
+    }
+    public function picherstore(Request $request, Picher $picher)
+    {
+        $input = $request['picher'];
+        $picher->fill($input)->save();
+        return redirect('/pichers/'.$picher->id);
+    }
+    
+    public function pichercreat()
+    {
+        return view('pitcher');
+    }
+    public function picherview(Picher $picher)
+    {
+        return view ('picherview')->with(['picher' => $picher]);
+    }
+    
 }

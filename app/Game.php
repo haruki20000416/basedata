@@ -8,9 +8,11 @@ class Game extends Model
 {
     protected $table = 'games';
     
+     public $timestamps = false;
+    
     protected $fillable =
     [
-        'pichername',
+        'picher_id',
         'batter',
         'inning',
         'outcount',
@@ -18,6 +20,7 @@ class Game extends Model
         'ballspecies',
         'speed',
         'result',
+        'information_id'
     ];
     
     public function picher()
