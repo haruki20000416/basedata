@@ -13,12 +13,11 @@
 
 Route::get('/', 'PostController@index');
 Route::get('/picher', 'PostController@show');
-Route::get('/information','PostController@create');
+Route::get('/informations','PostController@create');
 Route::post('/informations', 'PostController@store');
 Route::get('/informations/{information}', 'PostController@view');
-Route::get('/game','PostController@gamecreat');
-Route::post('/games', 'PostController@gamestore');
-Route::get('/games/{game}','PostController@gameview');
+Route::get('/informations/{information}/games','PostController@gamecreate');
+Route::post('/informations/{information}/games', 'PostController@gamestore');
 Route::post('/pichers','PostController@picherstore');
 Route::get('/picher','PostController@pichercreat');
 Route::get('/pichers/{picher}','PostController@picherview');

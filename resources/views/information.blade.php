@@ -18,18 +18,20 @@
 　　        @csrf
 　　        <div class="day">
 　　            <h2>日付</h2>
-　　            <input type="date" name="information[day]" placeholder="日付を選択"/>
-　　            
+　　            <input type="date" name="information[day]" placeholder="日付を選択" value="{{old('information.day')}}"/>
+　　            <p class="day__error" style="color:red">{{ $errors->first('information.day') }}</p>
 　　        </div>
 　　        <div class="place">
 　　            <h2>試合会場</h2>
-　　            <textarea name="information[place]" placeholder="場所を入力"></textarea>
-　　            
+　　            <textarea name="information[place]" placeholder="場所を入力">{{old('information.place')}}</textarea>
+　　            <p class="place__error" style="color:red">{{ $errors->first('information.place') }}</p>
 　　        </div>
 　　        <div class="opponent">
 　　            <h2>対戦相手</h2>
-　　            <textarea name="information[opponent]" placeholder="相手名"></textarea>
+　　            <textarea name="information[opponent]" placeholder="相手名">{{old('information.opponent')}}</textarea>
+　　            <p class="opponent__error" style="color:red">{{ $errors->first('information.opponent') }}</p>
 　　        </div>
+　　        
 　　 
 　　            
 　　        </div>

@@ -20,6 +20,7 @@ class Game extends Model
         'ballspecies',
         'speed',
         'result',
+        'course',
         'information_id'
     ];
     

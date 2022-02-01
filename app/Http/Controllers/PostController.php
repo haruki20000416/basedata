@@ -7,12 +7,16 @@ use database\seeds\DatabaseSeeder;
 use App\Game;
 use App\Picher;
 use App\Information;
+use App\Http\Requests\PicherRequest;
+use App\Http\Requests\InformationRequest;
+use App\Http\Requests\GameRequest;
 
 class PostController extends Controller
 {
-    public function index(Game $game)
+    
+    public function index(Information $infomations)
     {
-        return view('test')->with(['games' => $game->get()]);
+        return view('test')->with(['informations' => $infomations]);
     }
     
     public function show(Picher $Picher)
@@ -21,41 +25,42 @@ class PostController extends Controller
         
     }
     
-    
+    //試合情報データ画面へのアクセス
     public function create()
     {
     return view('information');
 
     }
-    
-    public function store(Request $request, Information $infomation)
+    //データベースへの保存（試合情報）
+    public function store(InformationRequest $request, Information $infomation)
     {
         $input = $request['information'];
         $infomation->fill($input)->save();
-        return redirect('/informations/' . $infomation->id);
+        return redirect('/informations/'.$infomation->id.'/games');
     }
-    
+    //
     public function view(Information $information) 
     {
     return view('show')->with(['information' => $information]);
     }
-    
-    public function gamestore(Request $request, Game $game)
+    //データベースへの保存（ゲームデータ）
+    public function gamestore(GameRequest $request, Game $game, $information_id)
     {
         $input  = $request['game'];
         $game->fill($input)->save();
-        return redirect('/games/'.$game->id);
+        return redirect('/informations/'.$information_id.'/games');
     }
     
     public function gameview(Game $game)
     {
         return view('gameview')->with(['game' => $game]);
     }
-    public function gamecreat()
+    public function gamecreate($information_id)
     {
-        return view('game');
+        return view('game')->with(['information_id' =>$information_id]);
     }
-    public function picherstore(Request $request, Picher $picher)
+    //データベースへの保存（投手情報）
+    public function picherstore(PicherRequest $request, Picher $picher)
     {
         $input = $request['picher'];
         $picher->fill($input)->save();
