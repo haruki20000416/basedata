@@ -14,9 +14,9 @@ use App\Http\Requests\GameRequest;
 class PostController extends Controller
 {
     
-    public function index(Information $infomations)
+    public function index(Information $infomations, Picher $picher)
     {
-        return view('test')->with(['informations' => $infomations]);
+        return view('test')->with(['pichers' => $picher->get()]);
     }
     
     public function show(Picher $Picher)
@@ -25,18 +25,17 @@ class PostController extends Controller
         
     }
     
-    //試合情報データ画面へのアクセス
     public function create()
     {
     return view('information');
 
     }
-    //データベースへの保存（試合情報）
+    
     public function store(InformationRequest $request, Information $infomation)
     {
         $input = $request['information'];
         $infomation->fill($input)->save();
-        return redirect('/informations/'.$infomation->id.'/games');
+        return redirect('/informations/'.$infomation->id);
     }
     //
     public function view(Information $information) 
@@ -44,20 +43,20 @@ class PostController extends Controller
     return view('show')->with(['information' => $information]);
     }
     //データベースへの保存（ゲームデータ）
-    public function gamestore(GameRequest $request, Game $game, $information_id)
+    public function gamestore(GameRequest $request, Game $game)
     {
         $input  = $request['game'];
         $game->fill($input)->save();
-        return redirect('/informations/'.$information_id.'/games');
+        return view('game')->with(['game' => $game]);
     }
     
-    public function gameview(Game $game)
+    public function gamereturn(Game $game)
     {
-        return view('gameview')->with(['game' => $game]);
+        return view('game')->with(['game' => $game]);
     }
-    public function gamecreate($information_id)
+    public function gamecreate(game $game)
     {
-        return view('game')->with(['information_id' =>$information_id]);
+        return view('game')-> with(['game'=> $game]);
     }
     //データベースへの保存（投手情報）
     public function picherstore(PicherRequest $request, Picher $picher)

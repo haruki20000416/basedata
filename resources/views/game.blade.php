@@ -13,22 +13,22 @@
 　　
 　　<body>
 　　    <h1>試合データ入力</h1>
-　　    <form action="/informations/{{$information_id}}/games" method="POST">
+　　    <form action="/games" method="POST">
 　　        
 　　        @csrf
 　　        <div class="batter">
 　　            <h2>打者</h2>
-　　            <input type="text" name="game[batter]" placeholder="右or左" value="{{old('game.batter')}}"/>
+　　            <input type="text" name="game[batter]" placeholder="右or左" value="{{$game->batter}}"/>
 　　            <p class="batter__error" style="color:red">{{ $errors->first('game.batter') }}</p>
 　　        </div>
 　　        <div class="inning">
 　　            <h2>イニング</h2>
-　　            <input type="number" name="game[inning]" placeholder="イニングを入力" value="{{old('game.inning')}}"/>
+　　            <input type="number" name="game[inning]" placeholder="イニングを入力" value="{{$game->inning}}"/>
 　　            <p class="inning__error" style="color:red">{{ $errors->first('game.inning') }}</p>
 　　        </div>
 　　        <div class="outcount">
 　　            <h2>アウトカウント</h2>
-　　            <input type="number" name="game[outcount]" placeholder="アウトカウントを入力" value="{{old('game.outcount')}}"/>
+　　            <input type="number" name="game[outcount]" placeholder="アウトカウントを入力" value="{{$game->outcount}}"/>
 　　            <p class="outcount__error" style="color:red">{{ $errors->first('game.outcount') }}</p>
 　　        </div>
 　　        <div class="count">
@@ -39,6 +39,7 @@
 　　        <div class="ballspecies">
 　　            <h2>球種</h2>
 　　            <input type="text" name="game[ballspecies]" placeholder="球種を入力" value="{{old('game.ballspecies')}}"/>
+　　             <p class="ballspecies__error" style="color:red">{{ $errors->first('game.ballspecies') }}</p>
 　　        </div>
 　　        <div class="speed">
 　　            <h2>スピード</h2>
@@ -53,18 +54,18 @@
 　　        <div class="course">
 　　            <h2>コース</h2>
 　　            <input type="number" name="game[course]" placeholder="コースを入力" value="{{old('game.course')}}"/>
-　　            <p class="course_error" style="color:red"></p>{{ $errors->first('game.course')}}</P>
+　　            <p class="course_error" style="color:red">{{ $errors->first('game.course') }}</P>
 　　        </div>
 　　        
 　　        <div class="picher_id">
 　　            <h2>投手ID　ここをどーすか</h2>
-　　            <input class="number" name="game[picher_id]" value="{{old('game.picher_id')}}"/>
+　　            <input class="number" name="game[picher_id]" value="{{$game->picher_id}}"/>
 　　            <p class="picher_id__error" style="color:red">{{ $errors->first('game.picher_id') }}</p>
 　　        </div>
 　　        
 　　        <div class="information_id">
 　　            <h2>試合のID</h2>
-　　            <input class="number" name="game[information_id]" value="{{$information_id}}">
+　　            <input class="number" name="game[information_id]" value="{{$game->information_id}}"/>
 　　            <p class="information_id__error" style="color:red">{{ $errors->first('game.information_id') }}</p>
 　　        </div>
 　　           

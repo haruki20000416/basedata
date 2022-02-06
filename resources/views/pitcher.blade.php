@@ -20,7 +20,7 @@
 　　        <div class="uniname">
 　　            <h2>大学名</h2>
 　　            
-　　            <select class="uniname" name="picher[uniname]">
+　　            <select class="uniname" name="picher[uniname]" value="{{old('picher.uniname')}}">
                     <option value="">選択してください</option>
                     <option value="東日本国際大学">東日本国際大学</option>
                     <option value="東北公益文科大学">東北公益文科大学</option>
@@ -30,23 +30,26 @@
                     <option value="日大工学部">日大工学部</option>
                     <option value="その他">その他</option>
                 </select>
+                <p class="uniname_error" style="color:red">{{$errors->first('picher.uniname')}}</p>
 　　            
 　　        </div>
 　　        
 　　        <div class="pichername">
 　　            <h2>投手名</h2>
-　　            <textarea name="picher[pichername]" placeholder="名前を入力"></textarea>
-　　            
+　　            <textarea name="picher[pichername]" placeholder="名前を入力" >{{old('picher.pichername')}}</textarea>
+　　            <p class="pichername_error" style="color:red">{{$errors->first('picher.pichername')}}</p>
 　　        </div>
 　　        
-　　        <div class="opponent">
+　　        <div class="handedness">
 　　            <h2>利き手</h2>
-　　            <input type="text" name="picher[handedness]" placeholder="右投げor左投げ">
+　　            <input type="text" name="picher[handedness]" placeholder="右投げor左投げ" value="{{old('picher.handedness')}}">
+　　            <p class="handedness_error" style="color:red">{{$errors->first('picher.handedness')}}</p>
 　　        </div>
 　　        
 　　        <div class="quick">
 　　          　<h2>クイックタイム</h2>
-　　          　<input type="number" name="picher[quick]" placeholder="クイックタイムを入力">
+　　          　<input type="number" name="picher[quick]" placeholder="クイックタイムを入力" value="{{old('picher.quick')}}">
+　　          　<p class="quick_error" style="color:red">{{$errors->first('picher.quick')}}</p>
 　　        </div>
 　　 
 　　            
