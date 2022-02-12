@@ -3,57 +3,37 @@
 @section('title','データ詳細画面')
 
 @section('content')
-<div class="name">
+<div class="text">
+   
+<div class="box2">
     
     
-    <h1>{{$name->picher->uniname}}  {{$name->picher->pichername}}投手</h1>
-    
+    <h1 class="text-center">{{$name->picher->uniname}}  {{$name->picher->pichername}}投手</h1>
+   <div class="mt-3">
+    <h2 class="text-center">{{$name->picher->handedness}} 　クイックタイム{{$name->picher->quick/100}}秒</h2>
+ </div>
 </div>
 
-<div class="speed">      
-
-          <h2>平均球速</h2>  
-        @foreach ($speedaves as $speedave)
+<div class="container px-4">
+  <div class="row gx-5">
+    <div class="col">
+    <div class="box3">    
+     <h2 class="text-center">球種及び平均球速</h2>
+     </div>
+     <div class="p-3 border bg-light">
+       @foreach ($speedaves as $speedave)
         
-            <p>{{$speedave->ballspecies}}→{{ceil($speedave->speed)}}km</p>
+       <p class="text-center">{{$speedave->ballspecies}}→{{ceil($speedave->speed)}}km</p>
         
-        @endforeach
-</div>
-
-<div class="rate">
-    
-        <h2>投球割合</h2>
-        @foreach($ballspecies2s as $key =>$value)
-            <p>{{$key}}→{{ceil($value/$count*100)}}％</p>
-            
-        @endforeach
-</div>
-    // ここの大きさ調整
-    <div style="position: center; height:100; width:150">
-        <canvas id="myChart"> ></canvas>
-
-        <script src="{{ mix('js/app.js') }}"></script>
-    
+       @endforeach
+     </div>
     </div>
-
-<div class="rateR">
-        <h2>投球割合　右</h2>
-        @foreach($ballrs as $key => $value)
-           <p>{{$key}}->{{ceil($value/$countR*100)}}％</p>
-            
-        @endforeach
-</div>
-
-<div class="rateL">
-         <h2>投球割合　左</h2>
-        @foreach($ballLs as $key => $value)
-           <p>{{$key}}->{{ceil($value/$countL*100)}}％</p>
-            
-        @endforeach
-</div>  
-
-<div class="strike">
-        <h2>ストライク率</h2>
+    <div class="col">
+     <div class="box3">    
+      <h2 class="text-center">ストライク率</h2>
+     </div>
+      <div class="p-3 border bg-light">
+           <div class="text-center">
         @foreach($strikes as $key =>$value)
            @if($key == "ストレート") 
             <p>{{$key}}→{{ceil($value/$strikesta*100)}}％</p>
@@ -88,82 +68,522 @@
            @endif
            
         @endforeach
-</div>       
-        
-<div class="count">
-    <h2>カウント別球種</h2>
-    <div class="00">
-        <h3>0B0S</h3>
-        @foreach($count00CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count00C*100)}}％</P>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box2">
+    <h2 class="text-center">投球割合</h2>
+</div>    
+<div class=" border bg-light">
+ <div class="text-center">    
+  <div class="container">
+   <div class="row">
+    <div class="col">
+      <h2>全体</h2>
+        @foreach($ballspecies2s as $key =>$value)
+         @if($value/$count >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count*100)}}％</h4>
+         @elseif($value/$count <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count*100)}}％</p>
+         @endif
+         
+            
         @endforeach
     </div>
-    <div class="01">
-        <h3>0B1S</h3>
-        @foreach($count01CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count01C*100)}}％</P>
+    <div class="col">
+      <h2>右</h2>
+        @foreach($ballrs as $key => $value)
+        @if($value/$countR >=0.5) 
+        <h4 class="text-danger">{{$key}}->{{ceil($value/$countR*100)}}％</h4>
+        @elseif($value/$countR <=0.5) 
+         <p>{{$key}}->{{ceil($value/$countR*100)}}％</p>
+        @endif 
+            
         @endforeach
     </div>
-    <div class="02">
-        <h3>0B2S</h3>
-        @foreach($count02CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count02C*100)}}％</P>
+    <div class="col">
+       <h2>左</h2>
+        @foreach($ballLs as $key => $value)
+         @if($value/$countL >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$countL*100)}}％</h4>
+         @elseif($value/$countL <=0.5) 
+         <p>{{$key}}->{{ceil($value/$countL*100)}}％</p>
+         @endif
         @endforeach
     </div>
-    <div class="10">
-        <h3>1B0S</h3>
-        @foreach($count10CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count10C*100)}}％</P>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+
+
+</div> 
+<div class="box2">
+<h2 class="text-center">カウント別球種割合</h2>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+     <div class="accordion" id="accordionPanelsStayOpenExample">
+     <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="ture" aria-controls="panelsStayOpen-collapseOne">
+        0B0S
+       </button>
+     </h2>
+     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+      <div class="accordion-body">
+         @foreach($count00CB as $key =>$value)
+         @if($value/$count00C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count00C*100)}}％</h4>
+         @elseif($value/$count00C <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count00C*100)}}％</p>
+         @endif
         @endforeach
+      </div>
+     </div>
     </div>
-    <div class="11">
-        <h3>1B1S</h3>
-        @foreach($count11CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count11C*100)}}％</P>
+    <div class="accordion-item">
+     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+        0B1S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+      <div class="accordion-body">
+         @foreach($count01CB as $key =>$value)
+         @if($value/$count01C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count01C*100)}}％</h4>
+         @elseif($value/$count01C <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count01C*100)}}％</p>
+         @endif
+         @endforeach
+      </div>
+    </div>
+    </div>
+    <div class="accordion-item">
+     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+        0B2S
+      </button>
+     </h2>
+     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+      <div class="accordion-body">
+         @foreach($count02CB as $key =>$value)
+         @if($value/$count02C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count02C*100)}}％</h4>
+         @elseif($value/$count <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count02C*100)}}％</p>
+         @endif
         @endforeach
+      </div>
+     </div>
+  </div>
+</div>
     </div>
-    <div class="12">
-        <h3>1B2S</h3>
+    <div class="col">
+      <div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading1">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse1" aria-expanded="true" aria-controls="panelsStayOpen-collapse1">
+        1B0S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse1" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading1">
+      <div class="accordion-body">
+         @foreach($count10CB as $key =>$value)
+         @if($value/$count10C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count10C*100)}}％</h4>
+         @elseif($value/$count <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count10C*100)}}％</p>
+         @endif
+        @endforeach
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading2">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse2" aria-expanded="false" aria-controls="panelsStayOpen-collapse2">
+        1B1S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse2" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading2">
+      <div class="accordion-body">
+         @foreach($count11CB as $key =>$value)
+         @if($value/$count11C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count11C*100)}}％</h4>
+         @elseif($value/$count11C <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count11C*100)}}％</p>
+         @endif
+           
+        @endforeach
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading3">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse3" aria-expanded="false" aria-controls="panelsStayOpen-collapse3">
+        1B2S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse3" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading3">
+      <div class="accordion-body">
         @foreach($count12CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count12C*100)}}％</P>
+        @if($value/$count12C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count12C*100)}}％</h4>
+         @elseif($value/$count12C <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count12C*100)}}％</p>
+         @endif
         @endforeach
+      </div>
     </div>
-    <div class="20">
-        <h3>2B0S</h3>
+  </div>
+</div>  
+    </div>
+    <div class="col">
+      <div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading4">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse4" aria-expanded="true" aria-controls="panelsStayOpen-collapse4">
+        2B0S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse4" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading4">
+      <div class="accordion-body">
         @foreach($count20CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count20C*100)}}％</P>
+        @if($value/$count20C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count20C*100)}}％</h4>
+         @elseif($value/$count20C <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count20C*100)}}％</p>
+         @endif
         @endforeach
+      </div>
     </div>
-    <div class="21">
-        <h3>2B1S</h3>
-        @foreach($count21CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count21C*100)}}％</P>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading5">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse5" aria-expanded="false" aria-controls="panelsStayOpen-collapse5">
+        2B1S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse5" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading5">
+      <div class="accordion-body">
+         @foreach($count21CB as $key =>$value)
+         @if($value/$count21C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count21C*100)}}％</h4>
+         @elseif($value/$count21C <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count21C*100)}}％</p>
+         @endif
         @endforeach
+      </div>
     </div>
-    <div class="22">
-        <h3>2B2S</h3>
-        @foreach($count22CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count22C*100)}}％</P>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading6">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse6" aria-expanded="false" aria-controls="panelsStayOpen-collapse6">
+        2B2S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse6" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading6">
+      <div class="accordion-body">
+         @foreach($count22CB as $key =>$value)
+         @if($value/$count22C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count22C*100)}}％</h4>
+         @elseif($value/$count22C <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count22C*100)}}％</p>
+         @endif
         @endforeach
+      </div>
     </div>
-    <div class="30">
-        <h3>3B0S</h3>
+  </div>
+</div>  
+    </div>
+    <div class="col">
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading7">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse7" aria-expanded="true" aria-controls="panelsStayOpen-collapse7">
+        3B0S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse7" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading7">
+      <div class="accordion-body">
         @foreach($count30CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count30C*100)}}％</P>
+        @if($value/$count30C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count30C*100)}}％</h4>
+         @elseif($value/$count30C <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count30C*100)}}％</p>
+         @endif
         @endforeach
+      </div>
     </div>
-    <div class="31">
-        <h3>3B1S</h3>
-        @foreach($count31CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count31C*100)}}％</P>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading8">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse8" aria-expanded="false" aria-controls="panelsStayOpen-collapse8">
+        3B1S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse8" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading8">
+      <div class="accordion-body">
+         @foreach($count31CB as $key =>$value)
+         @if($value/$count31C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count31C*100)}}％</h4>
+         @elseif($value/$count31C <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count31C*100)}}％</p>
+         @endif
         @endforeach
+      </div>
     </div>
-    <div class="32">
-        <h3>3B2S</h3>
-        @foreach($count32CB as $key =>$value)
-           <P>{{$key}}→{{ceil($value/$count32C*100)}}％</P>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading9">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse9" aria-expanded="false" aria-controls="panelsStayOpen-collapse9">
+        3B2S
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapse9" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading9">
+      <div class="accordion-body">
+         @foreach($count32CB as $key =>$value)
+         @if($value/$count32C >=0.5) 
+          <h4 class="text-danger">{{$key}}->{{ceil($value/$count32C*100)}}％</h4>
+         @elseif($value/$count <=0.5) 
+         <p>{{$key}}->{{ceil($value/$count32C*100)}}％</p>
+         @endif
         @endforeach
+      </div>
     </div>
-</div>        
+   </div>
+  </div>
+ </div>
+</div>
+</diV> 
+<div class="box2">
+ <h2 class="text-center">コース分布</h2>
+</div>
+<div class="container px-4">
+  <div class="row gx-5">
+    <div class="col">
+     <div class="p-3 border bg-light">
+         <h2>対右</h2>
+         <table class="table_box">
+  
+        <tr>
+        @if($cours7RR >= 0.3)
+        <td class="over30"> {{ceil($cours7RR*100)}}％</td>
+        @elseif($cours7RR >= 0.2)
+        <td class="over20"> {{ceil($cours7RR*100)}}％</td>
+        @elseif($cours7RR >= 0.1)
+        <td>{{ceil($cours7RR*100)}}％</td>
+        @elseif($cours7RR <= 0.1)
+        <td class="under10">{{ceil($cours7RR*100)}}％</td>
+        @endif
+        
+        
+         @if($cours4RR >= 0.3)
+        <td class="over30"> {{ceil($cours4RR*100)}}％</td>
+        @elseif($cours4RR >= 0.2)
+        <td class="over20"> {{ceil($cours4RR*100)}}％</td>
+        @elseif($cours4RR >= 0.1)
+        <td>{{ceil($cours4RR*100)}}％</td>
+        @elseif($cours4RR <= 0.1)
+        <td class="under10">{{ceil($cours4RR*100)}}％</td>
+        @endif
+        
+        
+        @if($cours1RR >= 0.3)
+        <td class="over30"> {{ceil($cours1RR*100)}}％</td>
+        @elseif($cours1RR >= 0.2)
+        <td class="over20"> {{ceil($cours1RR*100)}}％</td>
+        @elseif($cours1RR >= 0.1)
+        <td>{{ceil($cours1RR*100)}}％</td>
+        @elseif($cours1RR <= 0.1)
+        <td class="under10">{{ceil($cours1RR*100)}}％</td>
+        @endif
+            
+        </tr>
+        <tr>
+         @if($cours8RR >= 0.3)
+        <td class="over30"> {{ceil($cours8RR*100)}}％</td>
+        @elseif($cours8RR >= 0.2)
+        <td class="over20"> {{ceil($cours8RR*100)}}％</td>
+        @elseif($cours8RR >= 0.1)
+        <td>{{ceil($cours8RR*100)}}％</td>
+        @elseif($cours8RR <= 0.1)
+        <td class="under10">{{ceil($cours8RR*100)}}％</td>
+        @endif
+         
+        @if($cours5RR >= 0.3)
+        <td class="over30"> {{ceil($cours5RR*100)}}％</td>
+        @elseif($cours5RR >= 0.2)
+        <td class="over20"> {{ceil($cours5RR*100)}}％</td>
+        @elseif($cours5RR >= 0.1)
+        <td>{{ceil($cours5RR*100)}}％</td>
+        @elseif($cours5RR <= 0.1)
+        <td class="under10">{{ceil($cours5RR*100)}}％</td>
+        @endif
+         
+        @if($cours2RR >= 0.3)
+        <td class="over30"> {{ceil($cours2RR*100)}}％</td>
+        @elseif($cours2RR >= 0.2)
+        <td class="over20"> {{ceil($cours2RR*100)}}％</td>
+        @elseif($cours2RR >= 0.1)
+        <td>{{ceil($cours2RR*100)}}％</td>
+        @elseif($cours2RR <= 0.1)
+        <td class="under10">{{ceil($cours2RR*100)}}％</td>
+        @endif
+   
+        </tr>
+        <tr>
+        @if($cours9RR >= 0.3)
+        <td class="over30"> {{ceil($cours9RR*100)}}％</td>
+        @elseif($cours9RR >= 0.2)
+        <td class="over20"> {{ceil($cours9RR*100)}}％</td>
+        @elseif($cours9RR >= 0.1)
+        <td>{{ceil($cours9RR*100)}}％</td>
+        @elseif($cours9RR <= 0.1)
+        <td class="under10">{{ceil($cours9RR*100)}}％</td>
+        @endif
+        
+        @if($cours6RR >= 0.3)
+        <td class="over30"> {{ceil($cours6RR*100)}}％</td>
+        @elseif($cours6RR >= 0.2)
+        <td class="over20"> {{ceil($cours6RR*100)}}％</td>
+        @elseif($cours6RR >= 0.1)
+        <td>{{ceil($cours6RR*100)}}％</td>
+        @elseif($cours6RR <= 0.1)
+        <td class="under10">{{ceil($cours6RR*100)}}％</td>
+        @endif
+        
+         @if($cours3RR >= 0.3)
+        <td class="over30"> {{ceil($cours3RR*100)}}％</td>
+        @elseif($cours3RR >= 0.2)
+        <td class="over20"> {{ceil($cours3RR*100)}}％</td>
+        @elseif($cours3RR >= 0.1)
+        <td>{{ceil($cours3RR*100)}}％</td>
+        @elseif($cours3RR <= 0.1)
+        <td class="under10">{{ceil($cours3RR*100)}}％</td>
+        @endif
+    
+        </tr>
+   
+       </table>
+     </div>
+    </div>
+    <div class="col">
+      <div class="p-3 border bg-light">
+          <h2>対左</h2>
+          <table class="table_box">
+         
+        <tr>
+        @if($cours7LR >= 0.3)
+        <td class="over30"> {{ceil($cours7LR*100)}}％</td>
+        @elseif($cours7LR >= 0.2)
+        <td class="over20"> {{ceil($cours7LR*100)}}％</td>
+        @elseif($cours7LR >= 0.1)
+        <td>{{ceil($cours7LR*100)}}％</td>
+        @elseif($cours7LR <= 0.1)
+        <td class="under10">{{ceil($cours7LR*100)}}％</td>
+        @endif
+        
+        
+        @if($cours4LR >= 0.3)
+        <td class="over30"> {{ceil($cours4LR*100)}}％</td>
+        @elseif($cours4LR >= 0.2)
+        <td class="over20"> {{ceil($cours4LR*100)}}％</td>
+        @elseif($cours4LR >= 0.1)
+        <td>{{ceil($cours4LR*100)}}％</td>
+        @elseif($cours4LR <= 0.1)
+        <td class="under10">{{ceil($cours4LR*100)}}％</td>
+        @endif
+        
+        
+        @if($cours1LR >= 0.3)
+        <td class="over30"> {{ceil($cours1LR*100)}}％</td>
+        @elseif($cours1LR >= 0.2)
+        <td class="over20"> {{ceil($cours1LR*100)}}％</td>
+        @elseif($cours1LR >= 0.1)
+        <td>{{ceil($cours1LR*100)}}％</td>
+        @elseif($cours1LR <= 0.1)
+        <td class="under10">{{ceil($cours1LR*100)}}％</td>
+        @endif
+        </tr>
+        <tr>
+        
+        @if($cours8LR >= 0.3)
+        <td class="over30"> {{ceil($cours8LR*100)}}％</td>
+        @elseif($cours8LR >= 0.2)
+        <td class="over20"> {{ceil($cours8LR*100)}}％</td>
+        @elseif($cours8LR >= 0.1)
+        <td>{{ceil($cours8LR*100)}}％</td>
+        @elseif($cours8LR <= 0.1)
+        <td class="under10">{{ceil($cours8LR*100)}}％</td>
+        @endif
+         
+        @if($cours5LR >= 0.3)
+        <td class="over30"> {{ceil($cours5LR*100)}}％</td>
+        @elseif($cours5LR >= 0.2)
+        <td class="over20"> {{ceil($cours5LR*100)}}％</td>
+        @elseif($cours5LR >= 0.1)
+        <td>{{ceil($cours5LR*100)}}％</td>
+        @elseif($cours5LR <= 0.1)
+        <td class="under10">{{ceil($cours5LR*100)}}％</td>
+        @endif
+        
+        @if($cours2LR >= 0.3)
+        <td class="over30"> {{ceil($cours2LR*100)}}％</td>
+        @elseif($cours2LR >= 0.2)
+        <td class="over20"> {{ceil($cours2LR*100)}}％</td>
+        @elseif($cours2LR >= 0.1)
+        <td>{{ceil($cours2LR*100)}}％</td>
+        @elseif($cours2LR <= 0.1)
+        <td class="under10">{{ceil($cours2LR*100)}}％</td>
+        @endif
+   
+        </tr>
+        <tr>
+         @if($cours9LR >= 0.3)
+        <td class="over30"> {{ceil($cours9LR*100)}}％</td>
+        @elseif($cours9LR >= 0.2)
+        <td class="over20"> {{ceil($cours9LR*100)}}％</td>
+        @elseif($cours9LR >= 0.1)
+        <td>{{ceil($cours9LR*100)}}％</td>
+        @elseif($cours9LR <= 0.1)
+        <td class="under10">{{ceil($cours9LR*100)}}％</td>
+        @endif
+        
+        @if($cours6LR >= 0.3)
+        <td class="over30"> {{ceil($cours6LR*100)}}％</td>
+        @elseif($cours6LR >= 0.2)
+        <td class="over20"> {{ceil($cours6LR*100)}}％</td>
+        @elseif($cours6LR >= 0.1)
+        <td>{{ceil($cours6LR*100)}}％</td>
+        @elseif($cours6LR <= 0.1)
+        <td class="under10">{{ceil($cours6LR*100)}}％</td>
+        @endif
+        
+        @if($cours3LR >= 0.3)
+        <td class="over30"> {{ceil($cours3LR*100)}}％</td>
+        @elseif($cours3LR >= 0.2)
+        <td class="over20"> {{ceil($cours3LR*100)}}％</td>
+        @elseif($cours3LR >= 0.1)
+        <td>{{ceil($cours3LR*100)}}％</td>
+        @elseif($cours3LR <= 0.1)
+        <td class="under10">{{ceil($cours3LR*100)}}％</td>
+        @endif
+    
+        </tr>
+   
+       </table>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
     

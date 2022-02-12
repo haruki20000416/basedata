@@ -13,10 +13,24 @@ use App\Http\Requests\GameRequest;
 
 class PostController extends Controller
 {
-    
-    public function index(Information $infomations, Picher $picher)
+    //トップ画面表示
+    public function index(Information $infomations)
     {
-        return view('test')->with(['pichers' => $picher->get()]);
+        $picherfukus=Picher::where('uniname','福島大学')
+                    ->get();
+        $picherkokus=Picher::where('uniname','東日本国際大学')
+                    ->get();
+        $picherkous=Picher::where('uniname','東北公益文科大学')
+                    ->get();
+        $picherishis=Picher::where('uniname','石巻専修大学')
+                    ->get();            
+        $picheryamas=Picher::where('uniname','山形大学')
+                    ->get();
+        $pichernichis=Picher::where('uniname','日大工学部')
+                    ->get();            
+                    
+        return view('top',compact('picherfukus','picherkokus','picherkous','picherishis'
+                                  ,'picheryamas','pichernichis'));
     }
     
     public function show(Picher $Picher)
