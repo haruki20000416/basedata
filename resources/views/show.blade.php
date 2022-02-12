@@ -1,32 +1,23 @@
-<!DOCTYPE HTML>
-<html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>入力詳細確認</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="/css/app.css">
-    </head>
-    <body>
-        <h1>試合ID</h1>
-        <div class='day'>
-            <h3>日時</h3>
-            <p>{{ $information->id}}</p>
+@extends('layout')
+
+@section('title','試合データ確認')
+
+@section('content')
+<div class="box3">
+　　 <h1 class="text-center">試合データ確認画面</h1>
+</div>　　        
+        <div class='text-center'>
+            
+            <h2>試合ID</h2>
+            <h3 class="id">{{ $information->id}}</h3>
             
         </div>
-        <div class='place'>
-            <h3>試合会場</h3>
-            <p>{{$information->place}}</p>
-            
-        </div>
-        <div class='opponent'>
-            <h3>対戦相手</h3>
-            <p>{{$information->opponent}}</p>
-        </div>
-        [<a href='/games'>ゲームデータ入力へ進む</a>]
-        <div class="footer">
-            <a href="/">戻る</a>
-        </div>
-    </body>
-</html>
+    <div class="text-center">    
+        <div class="d-grid gap-2 d-md-block">
+         <a href="/informations"  class="btn btn-outline-secondary">戻る</a>
+         <a href='/games' class="btn btn-outline-primary">ゲームデータ入力へ進む</a>
+        </div> 
+    </div>    
+    
+
+@endsection
