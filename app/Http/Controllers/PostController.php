@@ -27,17 +27,17 @@ class PostController extends Controller
         $picheryamas=Picher::where('uniname','山形大学')
                     ->get();
         $pichernichis=Picher::where('uniname','日大工学部')
+                    ->get(); 
+        $pichersonotas=Picher::where('uniname','その他')
                     ->get();            
                     
         return view('top',compact('picherfukus','picherkokus','picherkous','picherishis'
-                                  ,'picheryamas','pichernichis'));
+                                  ,'picheryamas','pichernichis', 'pichersonotas'));
     }
     
-    public function show(Picher $Picher)
-    {
-        return $Picher ->get();
+    
         
-    }
+    
     
     public function create()
     {
@@ -88,5 +88,37 @@ class PostController extends Controller
     {
         return view ('picherview')->with(['picher' => $picher]);
     }
+    public function edit(Picher $picher)
+   {
+    return view('edit')->with(['picher' => $picher]);
+    }
+    public function update(PicherRequest $request, Picher $picher)
+    {
+    $input_picher = $request['picher'];
+    $picher->fill($input_picher)->save();
+
+    return redirect('/pichers/view/' . $picher->id);
+    }
     
+    public function show(Picher $picher)
+    {
+        $picherfukus=Picher::where('uniname','福島大学')
+                    ->get();
+        $picherkokus=Picher::where('uniname','東日本国際大学')
+                    ->get();
+        $picherkous=Picher::where('uniname','東北公益文科大学')
+                    ->get();
+        $picherishis=Picher::where('uniname','石巻専修大学')
+                    ->get();            
+        $picheryamas=Picher::where('uniname','山形大学')
+                    ->get();
+        $pichernichis=Picher::where('uniname','日大工学部')
+                    ->get(); 
+        $pichersonotas=Picher::where('uniname','その他')
+                    ->get();            
+    
+    
+     return view('id',compact('picherfukus','picherkokus','picherkous','picherishis'
+                                  ,'picheryamas','pichernichis', 'pichersonotas'));
+    }
 }
