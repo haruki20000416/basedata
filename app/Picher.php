@@ -16,6 +16,7 @@ class Picher extends Model
         'pichername',
         'handedness',
         'quick',
+        'comment',
         
         
     ];

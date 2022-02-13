@@ -19,6 +19,7 @@ class CreatePichersTable extends Migration
             $table->string('pichername',50);
             $table->string('handedness',50);
             $table->integer('quick');
+            $table->text('comment')->nullable();
         });
     }
 
