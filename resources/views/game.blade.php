@@ -6,7 +6,9 @@
 <div class="box2">
 　<h1 class="text-center">試合データ入力</h1>
 </div>　　    
-
+<div class="text-center">
+<a href="/games/id" class="btn btn-outline-warning">Id検索</a>
+</div>
 <form action="/games" method="POST">
      @csrf
      
@@ -16,10 +18,10 @@
     </div>
     <div class="col">
      <div class="picher_id">
-　　            <h2>投手名</h2>
-　　            <input class="form-control" type="number" name="game[picher_id]" value="{{$game->picher_id}}"/>
-　　            <p class="picher_id__error" style="color:red">{{ $errors->first('game.picher_id') }}</p>
-　　        </div>
+　　  <h2>投手ID</h2>
+　　   <input class="form-control" type="number" name="game[picher_id]" value="{{$game->picher_id}}"/>
+　　   <p class="picher_id__error" style="color:red">{{ $errors->first('game.picher_id') }}</p>
+　　  </div>
     </div>
     <div class="col">
      

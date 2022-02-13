@@ -8,12 +8,14 @@
 <div class="box2">
     
     
-    <h1 class="text-center">{{$name->picher->uniname}}  {{$name->picher->pichername}}投手</h1>
+    <h1 class="text-center">{{$name->uniname}}  {{$name->pichername}}投手</h1>
    <div class="mt-3">
-    <h2 class="text-center">{{$name->picher->handedness}} 　クイックタイム{{$name->picher->quick/100}}秒</h2>
+    <h2 class="text-center">{{$name->handedness}} 　クイックタイム{{$name->quick/100}}秒</h2>
  </div>
 </div>
-
+<div class="text-center">
+ <a class="btn btn-outline-warning" href="/pichers/{{ $picher_id}}/edit">投手情報を編集する</a>
+</div>
 <div class="container px-4">
   <div class="row gx-5">
     <div class="col">
@@ -370,7 +372,8 @@
   <div class="row gx-5">
     <div class="col">
      <div class="p-3 border bg-light">
-         <h2>対右</h2>
+         <h2 class="text-center">対右</h2>
+         <h3 class="text-center"><span class="mgr-150">out</span>in</h3>
          <table class="table_box">
   
         <tr>
@@ -392,7 +395,7 @@
         @elseif($cours4RR >= 0.1)
         <td>{{ceil($cours4RR*100)}}％</td>
         @elseif($cours4RR <= 0.1)
-        <td class="under10">{{ceil($cours4RR*100)}}％</td>
+       <td class="under10">{{ceil($cours4RR*100)}}％</td>
         @endif
         
         
@@ -477,7 +480,8 @@
     </div>
     <div class="col">
       <div class="p-3 border bg-light">
-          <h2>対左</h2>
+         <h2 class="text-center">対左</h2>
+         <h3 class="text-center"><span class="mgr-150">in</span>out</h3>
           <table class="table_box">
          
         <tr>
@@ -584,6 +588,11 @@
     </div>
   </div>
 </div>
-
+<div class="box1">
+   <div class="text-center">
+   <h2>コメント</h2>   
+   <p>{{$name->comment}}</p>
+   </div>
+</div>   
 @endsection
     

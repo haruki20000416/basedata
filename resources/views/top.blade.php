@@ -34,9 +34,8 @@
             投手情報入力へ進む
     </a>
 </div>
-
-<div class="box2"></div> 
 <a id="show"></a>
+<div class="box2"></div> 
 <div class="mb-5">
 　　<h2 class="text-center">投手データ一覧</h2>
 </div>　　
@@ -46,11 +45,11 @@
     <div class="col">
      <h3 class="fukudai">福島大学</h3>  
     @foreach ($picherfukus as $picherfuku)
-        <p class='text-dark'>
+        <p>
             
             <a href="/pichers/view/{{$picherfuku->id}}">{{$picherfuku->pichername}}投手</a>
             
-        </p>
+        </P>
     @endforeach
     </div>
     <div class="col">
@@ -100,16 +99,26 @@
     <div class="col">
       <h3 class="yama">山形大学</h3>  
     @foreach ($picheryamas as $picheryama)
-        <p class=''>
+        <p>
             
             <a href="/pichers/view/{{$picheryama->id}}">{{$picheryama->pichername}}投手</a>
-            
-        </p>
+        </p>    
+
     @endforeach
     </div>
   </div>
 </div>
         
-  
+<div class="box1">
+    <h3 class="text-center">その他</h3>
+    @foreach ($pichersonotas as $pichersonota)
+        <p class="text-center">
+            
+            <a href="/pichers/view/{{$pichersonota->id}}">{{$pichersonota->pichername}}投手</a>
+        </p>    
+
+    @endforeach
+    
+</div>
 
 @endsection
