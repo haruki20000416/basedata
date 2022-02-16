@@ -1,0 +1,69 @@
+.box2{
+    margin:100px;
+}
+.box1{
+    margin:100px;
+}
+
+.box3{
+    margin:50px;
+}
+.box4{
+    margin: 50px;
+}
+.fukudai{
+    color: #0000ff;
+}
+.kokusai{
+    color: #c0c0c0;
+}
+.koueki{
+    color: #ffa500;
+}
+.nichiko{
+    color: #ff0000;
+}
+.ishi{
+    color: #008000;
+}
+.yama{
+    color: #800000;
+}
+.id{
+    color: #ff0000;
+}
+
+table {
+  border-collapse:separate;
+  border-spacing: 5px;
+  margin: 0 auto;
+  padding: 0;
+  width: 250px;
+  height:250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table th,table td{
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+
+table td{
+  background-color: #ffffff;
+  border:solid 1px #603f00;
+}
+.over20{
+    background-color: #f08080
+}
+.over30{
+    background-color: #ff0000
+}
+.under10{
+    background-color: #40e0d0
+}
+.mgr-150{
+    margin-right : 150px;
+}
