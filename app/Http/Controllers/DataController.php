@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Game;
 use App\Picher;
@@ -14,7 +13,7 @@ class DataController extends Controller
         $data=Game::with('picher')->where('picher_id',$picher_id)->get();
         
         //名前取得
-        $name=Game::with('picher')->where('picher_id',$picher_id)->first();
+        $name=Picher::where('id',$picher_id)->first();
         
         //全投球数
         $count= $data->count();
@@ -126,6 +125,7 @@ class DataController extends Controller
             $count00C = $count00->count();  
             $count00s = $count00->pluck('ballspecies');
             $count00CB = $count00s->countBy(); 
+            
     
          //0-1
             $count01=Game::with('picher')
@@ -236,28 +236,28 @@ class DataController extends Controller
                ->where('batter','右')
                ->where('course','>',0)
                ->count();
-    
+        
          //1
         $cours1R=Game::with('picher')
                ->where('picher_id',$picher_id)
                ->where('batter','右')
                ->where('course',1)
                ->count();
-        $cours1RR=$cours1R/$coursRA;
+        
         //2
         $cours2R=Game::with('picher')
                ->where('picher_id',$picher_id)
                ->where('batter','右')
                ->where('course',2)
                ->count();
-        $cours2RR=$cours2R/$coursRA;
+        
         //3
         $cours3R=Game::with('picher')
                ->where('picher_id',$picher_id)
                ->where('batter','右')
                ->where('course',3)
                ->count();
-        $cours3RR=$cours3R/$coursRA;
+        
         
         //4
         $cours4R=Game::with('picher')
@@ -265,7 +265,7 @@ class DataController extends Controller
                ->where('batter','右')
                ->where('course',4)
                ->count();
-        $cours4RR=$cours4R/$coursRA;
+        
         
         //5
         $cours5R=Game::with('picher')
@@ -273,7 +273,7 @@ class DataController extends Controller
                ->where('batter','右')
                ->where('course',5)
                ->count();
-        $cours5RR=$cours5R/$coursRA;
+       
     
         //6
         $cours6R=Game::with('picher')
@@ -281,7 +281,7 @@ class DataController extends Controller
                ->where('batter','右')
                ->where('course',6)
                ->count();
-        $cours6RR=$cours6R/$coursRA;
+        
         
         //7
         $cours7R=Game::with('picher')
@@ -289,7 +289,7 @@ class DataController extends Controller
                ->where('batter','右')
                ->where('course',7)
                ->count();
-        $cours7RR=$cours7R/$coursRA;
+        
         
         //8
         $cours8R=Game::with('picher')
@@ -297,7 +297,7 @@ class DataController extends Controller
                ->where('batter','右')
                ->where('course',8)
                ->count();
-        $cours8RR=$cours8R/$coursRA;
+        
         
         //9
         $cours9R=Game::with('picher')
@@ -305,8 +305,10 @@ class DataController extends Controller
                ->where('batter','右')
                ->where('course',9)
                ->count();
-        $cours9RR=$cours9R/$coursRA;
         
+        
+        
+    
         //コース内訳　左
         $coursLA=Game::with('picher')
                ->where('picher_id',$picher_id)
@@ -319,14 +321,14 @@ class DataController extends Controller
                ->where('batter','左')
                ->where('course',1)
                ->count();
-        $cours1LR=$cours1L/$coursLA;
+       
         //2
         $cours2L=Game::with('picher')
                ->where('picher_id',$picher_id)
                ->where('batter','左')
                ->where('course',2)
                ->count();
-         $cours2LR=$cours2L/$coursLA; 
+          
          
         //3
         $cours3L=Game::with('picher')
@@ -334,7 +336,7 @@ class DataController extends Controller
                ->where('batter','左')
                ->where('course',3)
                ->count();
-        $cours3LR=$cours3L/$coursLA;
+        
          
         //4
         $cours4L=Game::with('picher')
@@ -342,53 +344,102 @@ class DataController extends Controller
                ->where('batter','左')
                ->where('course',4)
                ->count();
-        $cours4LR=$cours4L/$coursLA;       
+               
         //5
         $cours5L=Game::with('picher')
                ->where('picher_id',$picher_id)
                ->where('batter','左')
                ->where('course',5)
                ->count();
-        $cours5LR=$cours5L/$coursLA;       
+               
         //6
         $cours6L=Game::with('picher')
                ->where('picher_id',$picher_id)
                ->where('batter','左')
                ->where('course',6)
                ->count();
-        $cours6LR=$cours6L/$coursLA;       
+               
         //7
         $cours7L=Game::with('picher')
                ->where('picher_id',$picher_id)
                ->where('batter','左')
                ->where('course',7)
                ->count();
-         $cours7LR=$cours7L/$coursLA;       
+               
         //8
         $cours8L=Game::with('picher')
                ->where('picher_id',$picher_id)
                ->where('batter','左')
                ->where('course',8)
                ->count();
-        $cours8LR=$cours8L/$coursLA;
+        
         //9
         $cours9L=Game::with('picher')
                ->where('picher_id',$picher_id)
                ->where('batter','左')
                ->where('course',9)
                ->count();
-        $cours9LR=$cours9L/$coursLA;       
+        
+        if($coursRA)
+        {
+            $cours1RR=$cours1R/$coursRA;
+            $cours2RR=$cours2R/$coursRA;
+            $cours3RR=$cours3R/$coursRA;
+            $cours4RR=$cours4R/$coursRA;
+            $cours5RR=$cours5R/$coursRA;
+            $cours6RR=$cours6R/$coursRA;
+            $cours7RR=$cours7R/$coursRA;
+            $cours8RR=$cours8R/$coursRA;
+            $cours9RR=$cours9R/$coursRA;
+        }
+        else{
+            $cours1RR=0;
+            $cours2RR=0;
+            $cours3RR=0;
+            $cours4RR=0;
+            $cours5RR=0;
+            $cours6RR=0;
+            $cours7RR=0;
+            $cours8RR=0;
+            $cours9RR=0;
+        }
+        
+        if($coursLA)
+        {
+           $cours1LR=$cours1L/$coursLA;
+           $cours2LR=$cours2L/$coursLA;
+           $cours3LR=$cours3L/$coursLA;
+           $cours4LR=$cours4L/$coursLA;
+           $cours5LR=$cours5L/$coursLA;
+           $cours6LR=$cours6L/$coursLA;
+           $cours7LR=$cours7L/$coursLA;
+           $cours8LR=$cours8L/$coursLA;
+           $cours9LR=$cours9L/$coursLA;
+        }
+        else{
+            $cours1LR=0;
+            $cours2LR=0;
+            $cours3LR=0;
+            $cours4LR=0;
+            $cours5LR=0;
+            $cours6LR=0;
+            $cours7LR=0;
+            $cours8LR=0;
+            $cours9LR=0;
+        }
+    
         
         
         
         
-        return view('datashow',compact('name','data','speedaves','count','ballspecies2s',
+        return view('datashow',compact('name','speedaves','count','ballspecies2s',
                                         'picher_id','ballrs','countR','ballLs','countL','strikesta','strikes',
                                          'strikeysraa', 'strikeysraa','strikecuta','strikecura','strikechua','strikesina','strikechea', 'strikespa'
                                          ,'strikefora','striketwa','count00C','count00CB','count01C','count01CB','count02C','count02CB',
                                          'count10C','count10CB','count11C','count11CB','count12C','count12CB','count20C','count20CB',
                                         'count21C','count21CB','count22C','count22CB','count30C','count30CB','count31C','count31CB','count32C',
                                         'count32CB','cours1RR', 'cours2RR','cours3RR','cours4RR','cours5RR','cours6RR','cours7RR','cours8RR','cours9RR',
-                                        'cours1LR','cours2LR','cours3LR','cours4LR','cours5LR','cours6LR','cours7LR','cours8LR','cours9LR',));
+                                        'cours1LR','cours2LR','cours3LR','cours4LR','cours5LR','cours6LR','cours7LR','cours8LR','cours9LR','picher_id'));
     }
-}
+}    
+     
