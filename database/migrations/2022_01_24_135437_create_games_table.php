@@ -22,9 +22,10 @@ class CreateGamesTable extends Migration
             $table->string('ballspecies',50);
             $table->integer('speed');
             $table->string('result',50);
+            $table->integer('course');
             $table->integer('picher_id')->unsigned();
             $table->integer('information_id')->unsigned();
-            
+        
         });
     }
 

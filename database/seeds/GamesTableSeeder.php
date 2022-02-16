@@ -20,6 +20,7 @@ class GamesTableSeeder extends Seeder
             'ballspecies' => 'straight',
             'speed' => 132,
             'result' => 'strike',
+            'course' =>9,
             'picher_id'=> 1,
             'information_id'=> 1,
         ]);
